@@ -3,7 +3,7 @@
 
 using namespace std;
 
-//Codeforces Round #692 'B'
+//Codeforces Round #692 (Div. 2) 'B'
 
 int main()
 {
