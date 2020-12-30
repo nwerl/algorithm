@@ -3,6 +3,8 @@
 
 using namespace std;
 
+//Codeforces Round #692 'B'
+
 int main()
 {
 	int T;
