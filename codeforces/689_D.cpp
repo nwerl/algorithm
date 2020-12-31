@@ -7,12 +7,6 @@ using namespace std;
 
 void recur(int start, int end, vector<int>& arr, vector<long long>& sum, unordered_set<long long>& set)
 {
-	if(start == end)
-	{
-		set.insert(arr[start]);
-		return;
-	}
-
 	int down = upper_bound(arr.begin()+start, arr.begin()+end+1, (arr[start]+arr[end])/2)-arr.begin()-1;
 	
 	set.insert(sum[end]-sum[start-1]);
