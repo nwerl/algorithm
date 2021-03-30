@@ -1,5 +1,7 @@
 package programmers;
 
+import java.util.ArrayList;
+
 public class a17676 {
     public static void main(String[] args) {
         String[] inp = {
@@ -20,7 +22,9 @@ public class a17676 {
 
     public static int solution(String[] lines) {
         int answer = 0;
-        int[] timeline = new int[86400001];
+        ArrayList<Integer> beginTime = new ArrayList<>();
+        ArrayList<Integer> endTime = new ArrayList<>();
+        
 
         for(String s : lines) {
             String[] line = s.split(" ");
@@ -32,10 +36,43 @@ public class a17676 {
             double sec = Double.parseDouble(time[2]);
 
             int sum = (hour*3600+min*60)*1000+(int)(sec*1000);
-            timeline[sum] = 1;
-            timeline[sum-iv+1] = -1;
+            endTime.add(sum);
+            beginTime.add(sum-iv+1);
         }
         
-        return answer;
+        return chk(beginTime, endTime);
+    }
+
+    public static int chk(ArrayList<Integer> beginTime, ArrayList<Integer> endTime) {
+        int ret = 0;
+        for(int i=0;i<beginTime.size();i++) {
+            int cnt = 0;
+            int start = beginTime.get(i);
+            int end = start + 1000;
+
+
+            for(int j=0;j<beginTime.size();j++) {
+                if(beginTime.get(j) >= start && beginTime.get(j) < end) cnt++;
+                else if(endTime.get(j) >= start && endTime.get(j) < end) cnt++;
+                else if(beginTime.get(j) <= start && endTime.get(j) >= end) cnt++;
+            }
+            ret = Math.max(ret, cnt);
+        }
+
+        for(int i=0;i<endTime.size();i++) {
+            int cnt = 0;
+            int start = endTime.get(i);
+            int end = start + 1000;
+
+
+            for(int j=0;j<beginTime.size();j++) {
+                if(beginTime.get(j) >= start && beginTime.get(j) < end) cnt++;
+                else if(endTime.get(j) >= start && endTime.get(j) < end) cnt++;
+                else if(beginTime.get(j) <= start && endTime.get(j) >= end) cnt++;
+            }
+            ret = Math.max(ret, cnt);
+        }
+
+        return ret;
     }
 }
